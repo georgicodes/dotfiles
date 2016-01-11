@@ -12,3 +12,7 @@ done
 unset file
 
 alias git=hub
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
