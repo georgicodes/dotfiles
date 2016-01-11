@@ -1,22 +1,23 @@
 [user]
-   name = Your Name
-   email = your.email@example.com 
-[color]
-  diff = auto
-  status = auto
-  branch = auto
-  grep = auto
-	ui = true
+	name = Georgi Knox
+	email = <email>
+[github]
+	user = GeorgiCodes
+[push]
+	default = simple
+[credential]
+	helper = osxkeychain
 [alias]
-  a = add
-	ci = commit
 	co = checkout
-	br = branch
 	st = status
-  undo = reset HEAD~1 --mixed
-  cdiff = log -p -1 --stat
+	ci = commit
+	last = log -1 HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	all = for-each-ref --format='%(refname:short) <- %(upstream:short)' refs/heads
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
-[core]
-	excludesfile = ~/.gitignore
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	grep = auto
+	ui = true

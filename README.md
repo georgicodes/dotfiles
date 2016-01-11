@@ -1,2 +1,2 @@
-leet_settings
+dotfiles
 =============
