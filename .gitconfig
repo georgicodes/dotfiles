@@ -1,8 +1,8 @@
 [user]
 	name = Georgi Knox
-	email = <email>
+	email = georgicodes@github.com
 [github]
-	user = GeorgiCodes
+	user = georgicodes
 [push]
 	default = simple
 [credential]
