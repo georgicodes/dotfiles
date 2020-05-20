@@ -10,7 +10,7 @@ alias build="src; reset; chroot-build.sh && chroot-start.sh && chroot-configure.
 export PATH=~/enterprise2:$PATH
 export DEV_MODE=1
 export GHE_LXC_NAME=ghe-dev-$(id -un)
-export ENABLE_KAFKA_LITE=1
+export ENABLE_HYDRO=1
 export OVERLAY_VM_FILES=yes
 
 src;
