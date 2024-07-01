@@ -2,34 +2,47 @@
 
 os=$(uname) # Linux|Darwin
 
+install_app() {
+    app_name=$1
+    if [[ $os == "Darwin" ]]; then
+        if ! brew list $app_name &>/dev/null; then
+            echo "$app_name is not installed. Installing..."
+            brew install $app_name
+
+            if [[ $app_name == "nvm" ]]; then
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
+                [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
+
+                nvm install node
+            fi
+        else
+            echo "$app_name already installed."
+        fi
+    else
+        sudo apt install $app_name
+    fi
+}
+
+echo "installing georgi's favourite things..."
+
 # install homebrew
 if [[ $os == "Darwin" ]]; then
     if ! command -v brew &>/dev/null; then
         echo "Homebrew not found. Installing..."
         # Use curl to download the installation script
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew update
     else
         echo "Homebrew already installed."
+        brew update
     fi
 fi
 
-# install zsh
-if command -v zsh &>/dev/null; then
-    echo "zsh already installed."
-else
-    echo "zsh is not installed, fixing that now"
-    if [[ $os == "Darwin" ]]; then
-        brew install zsh
-    else
-        sudo apt install -y zsh
-    fi
-    source ~/.zshrc
-    zsh
-fi
+install_app zsh
 export ZSH_CUSTOM=~/.oh-my-zsh/custom
 
 # install oh-my-zsh + plugins
-# check if oh-my-zsh is already installed
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
     echo "oh-my-zsh already installed."
 else
@@ -49,7 +62,7 @@ else
     git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 fi
 
-echo "copying os specific zsh configs to $ZSH_CUSTOM folder"
+# echo "copying os specific zsh configs to $ZSH_CUSTOM folder"
 if [[ $os == "Darwin" ]]; then
     cp macos.zsh "$ZSH_CUSTOM"
     echo "Copied macos.zsh to $ZSH_CUSTOM"
@@ -58,33 +71,15 @@ else
     echo "Copied linux.zsh to $ZSH_CUSTOM"
 fi
 
-if [[ $os == "Darwin" ]]; then
-    if ! brew list nvm &>/dev/null; then
-        echo "nvm is not installed. Installing..."
-        # Install nvm using Homebrew
-        echo "installing nvm + node"
-        brew install nvm
-        nvm install node
+install_app git
+cp .gitconfig ~/.gitconfig
 
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
-        [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
-    else
-        echo "zsh already installed."
-    fi
+install_app nvm
+install_app tsc
+if command -v yarn &>/dev/null; then
+    echo "yarn already installed."
 else
-    echo "not installing nvm + node on Linux rn"
+    curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 fi
 
-if [[ $os == "Darwin" ]]; then
-    if ! brew list git &>/dev/null; then
-        echo "git is not installed. Installing..."
-        brew install git
-        cp .gitconfig ~/.gitconfig
-    else
-        echo "git already installed."
-    fi
-else
-    sudo apt install git
-    cp .gitconfig ~/.gitconfig
-fi
+echo "finished installing georgi's favourite things..."
