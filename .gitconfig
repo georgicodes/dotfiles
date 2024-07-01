@@ -1,40 +1,35 @@
-[user]
-	name = Georgi Knox
-	email = georgicodes@github.com
-[github]
-	user = georgicodes
+[url "git@slack-github.com:"]
+    insteadOf = https://slack-github.com/
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [push]
 	default = simple
-[credential]
-	helper = osxkeychain
+[fetch]
+	prune = true
+[user]
+	name = Georgi Knox
+	email = gknox@slack-corp.com
+# START georgi custom
+[core]
+	excludesfile = /Users/gknox/.gitignore_global
+	ignorecase = true
+	editor = code --wait
 [alias]
-	add = add -p
-	co = checkout
-	st = status
-	ci = commit
-	last = log -1 HEAD
+    add = add -p
+    co = checkout
+    st = status
+    ci = commit
+    last = log -1 HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	all = for-each-ref --format='%(refname:short) <- %(upstream:short)' refs/heads
-	tree = log --graph --decorate --pretty=oneline --abbrev-commit
-	# Show verbose output about tags, branches or remotes
+    all = for-each-ref --format='%(refname:short) <- %(upstream:short)' refs/heads
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit
+    # Show verbose output about tags, branches or remotes
   tags = tag -l
   branches = branch -a
   remotes = remote -v
   # Pretty log output
   hist = log --graph --pretty=format:'%Cred%h%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)%Creset [%an]' --abbrev-commit --date=relative
-[color]
-	grep = auto
-	ui = true
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-[color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+# END georgi custom
