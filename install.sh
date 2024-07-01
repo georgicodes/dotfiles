@@ -26,13 +26,29 @@ else
     source ~/.zshrc
     zsh
 fi
+export ZSH_CUSTOM=~/.oh-my-zsh/custom
 
 # install oh-my-zsh + plugins
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+# check if oh-my-zsh is already installed
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "oh-my-zsh already installed."
+else
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
-export ZSH_CUSTOM=~/.oh-my-zsh/custom
+# install zsh-autosuggestions plugin
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "zsh-autosuggestions already installed."
+else
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "zsh-history-substring-search already installed."
+else
+    git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+fi
+
 echo "copying os specific zsh configs to $ZSH_CUSTOM folder"
 if [[ $os == "Darwin" ]]; then
     cp macos.zsh "$ZSH_CUSTOM"
@@ -43,7 +59,6 @@ else
 fi
 
 if [[ $os == "Darwin" ]]; then
-
     if ! brew list nvm &>/dev/null; then
         echo "nvm is not installed. Installing..."
         # Install nvm using Homebrew
