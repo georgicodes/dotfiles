@@ -10,11 +10,12 @@
     "orange": "#f36943",
     "beg_seg": "#07e45b",
     "sky_blue": "#40c4ff",
-    "git_seg": "#a037b7",
+    "dark_purple": "#d87fec",
     "purple": "#c300ff",
     "sky": "#00ffff",
     "blue": "#0077c2",
-    "yellow": "#FFFB38"
+    "yellow": "#FFFB38",
+    "chatruse": "#"
   },
   "blocks": [
     {
@@ -52,10 +53,10 @@
           "background": "p:yellow",
           "foreground": "p:light",
           "background_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#c300ff{{ end }}",
-            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#c5e478{{ end }}",
-            "{{ if gt .Ahead 0 }}#C792EA{{ end }}",
-            "{{ if gt .Behind 0 }}#C792EA{{ end }}"
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:dark_purple{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:chatruse{{ end }}",
+            "{{ if gt .Ahead 0 }}p:dark_purple{{ end }}",
+            "{{ if gt .Behind 0 }}p:dark_purple{{ end }}"
           ],
           "powerline_symbol": "\ue0b0",
           "properties": {
