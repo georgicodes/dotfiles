@@ -54,3 +54,12 @@ alias kubebeach="slack-beach --role kube-beach"      # SSH into your ops-lite be
 alias kubebeachhost="slack-beach --print kube-beach" # print the hostname of you kube-beach
 # END georgi custom
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
+# END georgi custom
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export ZSH_CUSTOM=~/.oh-my-zsh/custom
+
+eval "$(oh-my-posh init zsh --config theme-atomic.omp.json)"

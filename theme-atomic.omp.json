@@ -7,6 +7,7 @@
     "error_foreground": "#ff0095",
     "pink": "#f943ad",
     "red": "#ef5350",
+    "dark_red": "#f30d09",
     "orange": "#f36943",
     "beg_seg": "#07e45b",
     "sky_blue": "#40c4ff",
@@ -65,7 +66,7 @@
             "fetch_upstream_icon": true
           },
           "style": "powerline",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} ",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#f30d09> \uf046 {{ .Staging.String }}</>{{ end }} ",
           "type": "git"
         }
       ],
