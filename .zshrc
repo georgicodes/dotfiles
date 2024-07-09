@@ -62,4 +62,5 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ZSH_CUSTOM=~/.oh-my-zsh/custom
 
+PATH=$PATH:~/bin
 eval "$(oh-my-posh init zsh --config theme-atomic.omp.json)"

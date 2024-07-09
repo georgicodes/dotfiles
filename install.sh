@@ -67,8 +67,11 @@ if [[ $os == "Darwin" ]]; then
     cp macos.zsh "$ZSH_CUSTOM"
     echo "Copied macos.zsh to $ZSH_CUSTOM"
 else
-    cp linux.zsh "$ZSH_CUSTOM"
-    echo "Copied linux.zsh to $ZSH_CUSTOM"
+    cp kube-beach.zsh "$ZSH_CUSTOM"
+    echo "Copied kube-beach.zsh to $ZSH_CUSTOM"
+    install_app unzip
+    mkdir ~/bin
+    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
 fi
 
 install_app git
@@ -83,5 +86,8 @@ else
     curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
     # echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >>~/.zshrc
 fi
+
+cp .zshrc ~
+source ~/.zshrc
 
 echo "finished installing georgi's favourite things..."
