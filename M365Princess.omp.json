@@ -1,14 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "white": "#ffffff",
-    "red": "#CC3802",
+    "white": "#FFFFFF",
+    "tan": "#CC3802",
     "teal": "#047E84",
-    "plum": "#ee5cfd",
-    "blush": "#de37f199",
-    "salmon": "#00ff60",
-    "sky": "#1bd7d7",
-    "teal_blue": "#00ffff88"
+    "plum": "#9A348E",
+    "blush": "#DA627D",
+    "salmon": "#FCA17D",
+    "sky": "#86BBD8",
+    "teal_blue": "#33658A"
   },
   "blocks": [
     {
@@ -19,7 +19,7 @@
           "style": "diamond",
           "leading_diamond": "\ue0b6",
           "foreground": "p:white",
-          "background": "p:red",
+          "background": "p:tan",
           "template": "{{ if .Env.PNPPSHOST }} \uf8c5 {{ .Env.PNPPSHOST }} {{ end }}"
         },
         {
@@ -57,7 +57,7 @@
           "foreground": "p:white",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "style": "full"
+            "style": "folder"
           },
           "style": "powerline",
           "template": " {{ .Path }} ",
@@ -84,6 +84,17 @@
           "style": "powerline",
           "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
           "type": "node"
+        },
+        {
+          "background": "p:teal_blue",
+          "foreground": "p:white",
+          "properties": {
+            "time_format": "15:04"
+          },
+          "style": "diamond",
+          "template": " \u2665 {{ .CurrentDate | date .Format }} ",
+          "trailing_diamond": "\ue0b0",
+          "type": "time"
         }
       ],
       "type": "prompt"

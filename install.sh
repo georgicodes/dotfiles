@@ -10,7 +10,7 @@ install_app() {
             brew install $app_name
 
             if [[ $app_name == "nvm" ]]; then
-                export NVM_DIR="$HOME/.nvm"
+                echo 'NVM_DIR="$HOME/.nvm"' >>~/.zshrc
                 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
                 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
 
@@ -40,7 +40,7 @@ if [[ $os == "Darwin" ]]; then
 fi
 
 install_app zsh
-export ZSH_CUSTOM=~/.oh-my-zsh/custom
+echo "export ZSH_CUSTOM=~/.oh-my-zsh/custom" >>~/.zshrc
 
 # install oh-my-zsh + plugins
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
@@ -79,7 +79,9 @@ install_app tsc
 if command -v yarn &>/dev/null; then
     echo "yarn already installed."
 else
+    echo "yarn is not installed. Installing..."
     curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+    echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >>~/.zshrc
 fi
 
 echo "finished installing georgi's favourite things..."
