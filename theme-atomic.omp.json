@@ -23,31 +23,33 @@
       "alignment": "left",
       "segments": [
         {
+          "type": "session",
+          "style": "diamond",
           "background": "p:beg_seg",
           "foreground": "p:light",
           "leading_diamond": "\u256d\u2500\ue0b6",
-          "style": "diamond",
-          "template": "  ",
-          "type": "shell"
+          "trailing_diamond": "",
+          "template": "{{ if .SSHSession }} {{ .HostName }}{{ else }}{{ end }}",
+          "description": "beginning segment for hostname/ssh"
         },
         {
           "background": "p:red",
           "foreground": "p:light",
           "style": "diamond",
           "template": "<parentBackground>\ue0b0</> \uf292 ",
-          "type": "root"
+          "type": "root",
+          "description": "is current user root?"
         },
         {
+          "leading_diamond": "",
+          "trailing_diamond": "",
           "background": "p:sky_blue",
           "foreground": "p:light",
-          "powerline_symbol": "\ue0b0",
           "properties": {
-            "folder_icon": " \uf07b ",
-            "home_icon": "\ue617",
             "style": "full"
           },
-          "style": "powerline",
-          "template": " \uf07b\uea9c {{ .Path }} ",
+          "style": "diamond",
+          "template": " {{ .Path }} ",
           "type": "path"
         },
         {
@@ -60,13 +62,15 @@
             "{{ if gt .Behind 0 }}p:dark_purple{{ end }}"
           ],
           "powerline_symbol": "\ue0b0",
+          "leading_diamond": "",
+          "trailing_diamond": "",
           "properties": {
             "branch_icon": "\ue725 ",
             "fetch_status": true,
             "fetch_upstream_icon": true
           },
-          "style": "powerline",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#f30d09> \uf046 {{ .Staging.String }}</>{{ end }} ",
+          "style": "diamond",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<p:orange> \uf046 {{ .Staging.String }}</>{{ end }} ",
           "type": "git"
         }
       ],
@@ -211,12 +215,12 @@
           "foreground": "p:light",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "<transparent,background>\ue0b2</>",
+          "style": "diamond",
           "properties": {
             "linux": "\ue712",
             "macos": "\ue711",
             "windows": "\ue70f"
           },
-          "style": "diamond",
           "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
           "type": "os"
         },
