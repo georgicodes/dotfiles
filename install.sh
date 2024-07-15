@@ -93,6 +93,8 @@ else
 fi
 
 cp .zshrc ~
+cp theme-atomic.omp.json ~/.oh-my-zsh/custom
+# eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
 
 echo "finished installing georgi's favourite things..."
 echo "make sure to run source ~/.zshrc now"

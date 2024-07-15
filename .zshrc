@@ -47,20 +47,18 @@ alias sshconfig="code ~/.ssh/config"
 alias zshconfig="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
 
+if [[ $os == "Darwin" ]]; then
+    alias opsbeach="slack-beach --role ops"              # SSH into your ops-lite beach
+    alias opsbeachhost="slack-beach --print ops"         # print the hostname of you kube-beach
+    alias kubebeach="slack-beach --role kube-beach"      # SSH into your ops-lite beach
+    alias kubebeachhost="slack-beach --print kube-beach" # print the hostname of you kube-beach
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
+fi
+
 export OKTA_USERNAME=gknox
-alias opsbeach="slack-beach --role ops"              # SSH into your ops-lite beach
-alias opsbeachhost="slack-beach --print ops"         # print the hostname of you kube-beach
-alias kubebeach="slack-beach --role kube-beach"      # SSH into your ops-lite beach
-alias kubebeachhost="slack-beach --print kube-beach" # print the hostname of you kube-beach
-# END georgi custom
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
-# END georgi custom
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ZSH_CUSTOM=~/.oh-my-zsh/custom
-
 PATH=$PATH:~/bin
-eval "$(oh-my-posh init zsh --config theme-atomic.omp.json)"
