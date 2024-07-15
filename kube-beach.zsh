@@ -1,3 +1,4 @@
+source /etc/profile.d/kubeconfig.sh
 
 alias latestpod='function _latestpod() {
   if [[ -z "$1" || -z "$2" ]]; then

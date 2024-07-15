@@ -26,8 +26,8 @@ bindkey '^[[B' history-substring-search-down
 # START georgi custom
 
 # install script will only copy relevant file based on OS
-if [ -f "$ZSH_CUSTOM/aliases.zsh" ]; then
-    source "$ZSH_CUSTOM/aliases.zsh"
+if [ -f "$ZSH_CUSTOM/kube-beach.zsh" ]; then
+    source "$ZSH_CUSTOM/kube-beach.zsh"
 fi
 if [ -f "$ZSH_CUSTOM/macos.zsh" ]; then
     source "$ZSH_CUSTOM/macos.zsh"

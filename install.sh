@@ -69,16 +69,21 @@ if [[ $os == "Darwin" ]]; then
 else
     cp kube-beach.zsh "$ZSH_CUSTOM"
     echo "Copied kube-beach.zsh to $ZSH_CUSTOM"
-    install_app unzip
-    mkdir ~/bin
-    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+    if [ ! -f ~/bin/oh-my-posh ]; then
+        install_app unzip
+        mkdir ~/bin
+        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+    fi
 fi
 
 install_app git
 cp .gitconfig ~/.gitconfig
 
-install_app nvm
-install_app tsc
+if [[ $os == "Darwin" ]]; then
+    install_app nvm
+    install_app tsc
+fi
+
 if command -v yarn &>/dev/null; then
     echo "yarn already installed."
 else
@@ -88,6 +93,6 @@ else
 fi
 
 cp .zshrc ~
-source ~/.zshrc
 
 echo "finished installing georgi's favourite things..."
+echo "make sure to run source ~/.zshrc now"
