@@ -42,12 +42,15 @@ alias gitflip="echo '(╯°□°）╯︵ ┻━┻' && git reset --hard HEAD"
 alias ip="ipconfig getifaddr en0"
 alias sshhome="cd ~/.ssh"
 
-alias gitconfig="code ~/.gitconfig"
-alias sshconfig="code ~/.ssh/config"
-alias zshconfig="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
 
 if [[ $os == "Darwin" ]]; then
+    alias cdsl="cd ~/dev/slack"
+    alias cdts="cd ~/dev/tinyspeck"
+    alias gitconfig="code ~/.gitconfig"
+    alias sshconfig="code ~/.ssh/config"
+    alias zshconfig="code ~/.zshrc"
+
     alias opsbeach="slack-beach --role ops"              # SSH into your ops-lite beach
     alias opsbeachhost="slack-beach --print ops"         # print the hostname of you kube-beach
     alias kubebeach="slack-beach --role kube-beach"      # SSH into your ops-lite beach
