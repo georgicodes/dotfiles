@@ -10,10 +10,6 @@ install_app() {
             brew install $app_name
 
             if [[ $app_name == "nvm" ]]; then
-                # echo 'NVM_DIR="$HOME/.nvm"' >>~/.zshrc
-                [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"                                       # This loads nvm
-                [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_com
-
                 nvm install node
             fi
         else
@@ -32,6 +28,12 @@ if [[ $os == "Darwin" ]]; then
         echo "Homebrew not found. Installing..."
         # Use curl to download the installation script
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+        echo "Adding brew to PATH"
+        echo >> /Users/gknox/.zprofile
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/gknox/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+
         brew update
     else
         echo "Homebrew already installed."
@@ -40,7 +42,6 @@ if [[ $os == "Darwin" ]]; then
 fi
 
 install_app zsh
-# echo "export ZSH_CUSTOM=~/.oh-my-zsh/custom" >>~/.zshrc
 
 # install oh-my-zsh + plugins
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
@@ -50,18 +51,19 @@ else
 fi
 
 # install zsh-autosuggestions plugin
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
+if [[ -d "$HOME/.oh-my-zsh/zsh-autosuggestions" ]]; then
     echo "zsh-autosuggestions already installed."
 else
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
+if [[ -d "$HOME/.oh-my-zsh/zsh-history-substring-search" ]]; then
     echo "zsh-history-substring-search already installed."
 else
     git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 fi
 
+ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
 # echo "copying os specific zsh configs to $ZSH_CUSTOM folder"
 if [[ $os == "Darwin" ]]; then
     cp macos.zsh "$ZSH_CUSTOM"
@@ -82,6 +84,8 @@ cp .gitconfig ~/.gitconfig
 if [[ $os == "Darwin" ]]; then
     install_app nvm
     install_app tsc
+    install_app jq
+    install_app tree
 fi
 
 if command -v yarn &>/dev/null; then
@@ -92,8 +96,10 @@ else
     # echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >>~/.zshrc
 fi
 
+echo "copying .zshrc to ~"
 cp .zshrc ~
-cp theme-atomic.omp.json ~/.oh-my-zsh/custom
+echo "copying themefile to $ZSH_CUSTOM"
+cp theme-atomic.omp.json $ZSH_CUSTOM
 # eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
 
 echo "finished installing georgi's favourite things..."

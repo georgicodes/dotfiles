@@ -1,19 +1,9 @@
 dotfiles
 =============
 
-### iTerm
-Followed instructions [here](https://github.com/nicolashery/mac-dev-setup) for iTerm.
-
-### git-completion:
+## How to use
 ```
-curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash`
+./install.sh
 
-# in ~/.bash_profile
-
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
+source ~/.zshrc
 ```
-
-### tmux
-i use it
