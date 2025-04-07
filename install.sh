@@ -102,9 +102,10 @@ echo "copying .zshrc to ~"
 cp .zshrc ~
 
 oh-my-posh font install meslo
+ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
 echo "copying themefile to $ZSH_CUSTOM"
 cp theme-atomic.omp.json $ZSH_CUSTOM
-# eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
 
 echo "finished installing georgi's favourite things..."
 echo "make sure to run source ~/.zshrc now"
