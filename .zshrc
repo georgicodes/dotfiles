@@ -63,5 +63,6 @@ fi
 
 export OKTA_USERNAME=gknox
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="/usr/local/go/bin:$PATH"
 export ZSH_CUSTOM=~/.oh-my-zsh/custom
 PATH=$PATH:~/bin

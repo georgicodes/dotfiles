@@ -86,6 +86,8 @@ if [[ $os == "Darwin" ]]; then
     install_app tsc
     install_app jq
     install_app tree
+    install_app coreutils
+    install_app jandedobbeleer/oh-my-posh/oh-my-posh
 fi
 
 if command -v yarn &>/dev/null; then
@@ -98,6 +100,8 @@ fi
 
 echo "copying .zshrc to ~"
 cp .zshrc ~
+
+oh-my-posh font install meslo
 echo "copying themefile to $ZSH_CUSTOM"
 cp theme-atomic.omp.json $ZSH_CUSTOM
 # eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
