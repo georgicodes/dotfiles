@@ -109,10 +109,24 @@ else
         mkdir -p ~/bin
         curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
     fi
+    # Add ~/bin to PATH in .zshrc if not already present
+    if ! grep -q 'export PATH="$HOME/bin:$PATH"' ~/.zshrc; then
+        echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
+    fi
+    # Add ~/bin to current PATH
+    export PATH="$HOME/bin:$PATH"
 fi
 
 # Install oh-my-posh font and theme
 echo "Installing oh-my-posh font..."
+# Ensure oh-my-posh is in PATH
+if ! command -v oh-my-posh &>/dev/null; then
+    if [[ $os == "Darwin" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        export PATH="$HOME/bin:$PATH"
+    fi
+fi
 oh-my-posh font install meslo
 
 echo "Installing oh-my-posh theme..."
