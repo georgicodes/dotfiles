@@ -41,45 +41,33 @@ if [[ $os == "Darwin" ]]; then
     fi
 fi
 
+install_app unzip
+install_app git
+cp .gitconfig ~/.gitconfig
 install_app zsh
 
 # install oh-my-zsh + plugins
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
     echo "oh-my-zsh already installed."
 else
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "Installing oh-my-zsh..."
+    # Use RUNZSH=no to prevent the installer from changing shell and exiting
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-# install zsh-autosuggestions plugin
-if [[ -d "$HOME/.oh-my-zsh/zsh-autosuggestions" ]]; then
+# install zsh plugins
+echo "Installing zsh plugins..."
+if [[ -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
     echo "zsh-autosuggestions already installed."
 else
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
-if [[ -d "$HOME/.oh-my-zsh/zsh-history-substring-search" ]]; then
+if [[ -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search" ]]; then
     echo "zsh-history-substring-search already installed."
 else
     git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 fi
-
-ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
-# echo "copying os specific zsh configs to $ZSH_CUSTOM folder"
-if [[ $os == "Darwin" ]]; then
-    cp macos.zsh "$ZSH_CUSTOM"
-    echo "Copied macos.zsh to $ZSH_CUSTOM"
-else
-    cp kube-beach.zsh "$ZSH_CUSTOM"
-    echo "Copied kube-beach.zsh to $ZSH_CUSTOM"
-    if [ ! -f ~/bin/oh-my-posh ]; then
-        install_app unzip
-        mkdir ~/bin
-        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
-    fi
-fi
-
-install_app git
-cp .gitconfig ~/.gitconfig
 
 if [[ $os == "Darwin" ]]; then
     install_app nvm
@@ -87,7 +75,6 @@ if [[ $os == "Darwin" ]]; then
     install_app jq
     install_app tree
     install_app coreutils
-    install_app jandedobbeleer/oh-my-posh/oh-my-posh
 fi
 
 if command -v yarn &>/dev/null; then
@@ -101,11 +88,44 @@ fi
 echo "copying .zshrc to ~"
 cp .zshrc ~
 
+echo "installing oh-my-posh theme + os configs"
+# Set ZSH_CUSTOM based on OS
+if [[ $os == "Darwin" ]]; then
+    ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
+    cp macos.zsh "$ZSH_CUSTOM"
+    echo "Copied macos.zsh to $ZSH_CUSTOM"
+    # Install oh-my-posh on macOS using brew
+    if ! brew list jandedobbeleer/oh-my-posh/oh-my-posh &>/dev/null; then
+        echo "Installing oh-my-posh..."
+        brew install jandedobbeleer/oh-my-posh/oh-my-posh
+    fi
+else
+    ZSH_CUSTOM=/home/gknox/.oh-my-zsh/custom
+    cp kube-beach.zsh "$ZSH_CUSTOM"
+    echo "Copied kube-beach.zsh to $ZSH_CUSTOM"
+    # Install oh-my-posh on Linux
+    if [ ! -f ~/bin/oh-my-posh ]; then
+        echo "Installing oh-my-posh..."
+        mkdir -p ~/bin
+        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+    fi
+fi
+
+# Install oh-my-posh font and theme
+echo "Installing oh-my-posh font..."
 oh-my-posh font install meslo
-ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
-echo "copying themefile to $ZSH_CUSTOM"
-cp theme-atomic.omp.json $ZSH_CUSTOM
-eval "$(oh-my-posh init zsh --config ~/.oh-my-zsh/custom/theme-atomic.omp.json)"
+
+echo "Installing oh-my-posh theme..."
+cp theme-atomic.omp.json "$ZSH_CUSTOM"
+echo "copying .zshrc to ~"
+cp .zshrc ~
+echo "finished installing oh-my-posh theme + os configs"
 
 echo "finished installing georgi's favourite things..."
-echo "make sure to run source ~/.zshrc now"
+echo -n "Would you like to restart your shell now to apply changes? (y/n) "
+read answer
+if [[ $answer == "y" ]]; then
+    exec zsh -l
+else
+    echo "Remember to run 'source ~/.zshrc' or restart your terminal to apply changes"
+fi

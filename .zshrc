@@ -25,13 +25,17 @@ bindkey '^[[B' history-substring-search-down
 
 # START georgi custom
 
-# install script will only copy relevant file based on OS
-if [ -f "$ZSH_CUSTOM/kube-beach.zsh" ]; then
-    source "$ZSH_CUSTOM/kube-beach.zsh"
+export ZSH_CUSTOM=~/.oh-my-zsh/custom
+if [[ $os == "Darwin" ]]; then
+    if [ -f "$ZSH_CUSTOM/macos.zsh" ]; then
+        source "$ZSH_CUSTOM/macos.zsh"
+    fi
+else
+    if [ -f "$ZSH_CUSTOM/kube-beach.zsh" ]; then
+        source "$ZSH_CUSTOM/kube-beach.zsh"
+    fi
 fi
-if [ -f "$ZSH_CUSTOM/macos.zsh" ]; then
-    source "$ZSH_CUSTOM/macos.zsh"
-fi
+eval "$(oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
 
 export EDITOR="vim"
 
@@ -64,5 +68,4 @@ fi
 export OKTA_USERNAME=gknox
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
-export ZSH_CUSTOM=~/.oh-my-zsh/custom
 PATH=$PATH:~/bin
