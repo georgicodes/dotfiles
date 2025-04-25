@@ -1,7 +1,7 @@
 dotfiles
 =============
 
-## How to use
+## How to use!
 ```
 ./install.sh
 
