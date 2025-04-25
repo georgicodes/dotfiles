@@ -25,6 +25,9 @@ bindkey '^[[B' history-substring-search-down
 
 # START georgi custom
 
+# Set PATH early to ensure oh-my-posh is available
+export PATH="$HOME/bin:$PATH"
+
 export ZSH_CUSTOM=~/.oh-my-zsh/custom
 if [[ $os == "Darwin" ]]; then
     if [ -f "$ZSH_CUSTOM/macos.zsh" ]; then
@@ -35,7 +38,7 @@ else
         source "$ZSH_CUSTOM/kube-beach.zsh"
     fi
 fi
-eval "$(oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
+eval "$(~/bin/oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
 
 export EDITOR="vim"
 
@@ -68,4 +71,4 @@ fi
 export OKTA_USERNAME=gknox
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
-PATH=$PATH:~/bin
+# PATH already set at the beginning of the file
