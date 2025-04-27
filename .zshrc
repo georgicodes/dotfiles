@@ -38,7 +38,11 @@ else
         source "$ZSH_CUSTOM/kube-beach.zsh"
     fi
 fi
-eval "$(~/bin/oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
+if [[ $os == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
+else
+    eval "$(~/bin/oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
+fi
 
 export EDITOR="vim"
 

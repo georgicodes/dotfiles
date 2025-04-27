@@ -30,8 +30,8 @@ if [[ $os == "Darwin" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
         echo "Adding brew to PATH"
-        echo >> /Users/gknox/.zprofile
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/gknox/.zprofile
+        echo >> "$HOME/.zprofile"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
         eval "$(/opt/homebrew/bin/brew shellenv)"
 
         brew update
@@ -91,7 +91,7 @@ cp .zshrc ~
 echo "installing oh-my-posh theme + os configs"
 # Set ZSH_CUSTOM based on OS
 if [[ $os == "Darwin" ]]; then
-    ZSH_CUSTOM=/Users/gknox/.oh-my-zsh/custom
+    ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
     cp macos.zsh "$ZSH_CUSTOM"
     echo "Copied macos.zsh to $ZSH_CUSTOM"
     # Install oh-my-posh on macOS using brew
@@ -100,7 +100,7 @@ if [[ $os == "Darwin" ]]; then
         brew install jandedobbeleer/oh-my-posh/oh-my-posh
     fi
 else
-    ZSH_CUSTOM=/home/gknox/.oh-my-zsh/custom
+    ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
     cp kube-beach.zsh "$ZSH_CUSTOM"
     echo "Copied kube-beach.zsh to $ZSH_CUSTOM"
     # Install oh-my-posh on Linux
@@ -127,9 +127,18 @@ if ! command -v oh-my-posh &>/dev/null; then
         export PATH="$HOME/bin:$PATH"
     fi
 fi
-oh-my-posh font install meslo
+# Use the --yes flag to avoid interactive prompts which might be causing the error
+if [[ $os == "Darwin" ]]; then
+    brew tap epk/epk
+    brew install --cask font-meslo-lg-nerd-font
+else
+    # Alternative font installation for Linux
+    oh-my-posh font install meslo --user
+fi
 
 echo "Installing oh-my-posh theme..."
+# Ensure custom directory exists
+mkdir -p "$ZSH_CUSTOM"
 cp theme-atomic.omp.json "$ZSH_CUSTOM"
 echo "copying .zshrc to ~"
 cp .zshrc ~

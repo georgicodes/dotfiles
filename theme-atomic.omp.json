@@ -68,31 +68,6 @@
     },
     {
       "type": "prompt",
-      "alignment": "right",
-      "segments": [
-        {
-          "properties": {
-            "cache_duration": "none",
-            "charged_icon": "\uf240 ",
-            "charging_icon": "\uf1e6 ",
-            "discharging_icon": "\ue234 "
-          },
-          "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 ",
-          "foreground": "p:light",
-          "powerline_symbol": "\ue0b2",
-          "type": "battery",
-          "style": "powerline",
-          "background_templates": [
-            "{{if eq \"Charging\" .State.String}}p:neon_green{{end}}",
-            "{{if eq \"Discharging\" .State.String}}p:orange{{end}}",
-            "{{if eq \"Full\" .State.String}}p:green{{end}}"
-          ],
-          "invert_powerline": true
-        }
-      ]
-    },
-    {
-      "type": "prompt",
       "alignment": "left",
       "segments": [
         {
