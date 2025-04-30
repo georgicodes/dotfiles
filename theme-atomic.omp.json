@@ -15,7 +15,7 @@
     "purple": "#cd5af0",
     "red": "#ef5350",
     "sky": "#3ee1e1",
-    "sky_blue": "#0f87d1",
+    "sky_blue": "#8a2be2",
     "yellow": "#e8ee2a"
   },
   "blocks": [
@@ -40,7 +40,7 @@
           },
           "template": " {{ .Path }} ",
           "foreground": "p:light",
-          "background": "#0f87d1",
+          "background": "#8a2be2",
           "type": "path",
           "style": "diamond"
         },
