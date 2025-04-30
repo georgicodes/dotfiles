@@ -40,7 +40,7 @@
           },
           "template": " {{ .Path }} ",
           "foreground": "p:light",
-          "background": "p:sky_blue",
+          "background": "#0f87d1",
           "type": "path",
           "style": "diamond"
         },
