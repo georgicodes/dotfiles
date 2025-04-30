@@ -38,6 +38,8 @@ else
         source "$ZSH_CUSTOM/kube-beach.zsh"
     fi
 fi
+# Fix for os variable not being set in .zshrc
+os=$(uname)
 if [[ $os == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/oh-my-posh init zsh --config $ZSH_CUSTOM/theme-atomic.omp.json)"
 else
